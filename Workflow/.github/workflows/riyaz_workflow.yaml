@@ -1,0 +1,29 @@
+name: Update RIYAZ Naukri Resume
+
+on:
+  schedule:
+    # 8:13 AM IST → 10:13 PM IST every 2 hours
+    - cron: '43 2 * * *'   # 8:13 AM
+    - cron: '43 4 * * *'   # 10:13 AM
+    - cron: '43 6 * * *'   # 12:13 PM
+    - cron: '43 8 * * *'   # 2:13 PM
+    - cron: '43 10 * * *'  # 4:13 PM
+    - cron: '43 12 * * *'  # 6:13 PM
+    - cron: '43 14 * * *'  # 8:13 PM
+    - cron: '43 16 * * *'  # 10:13 PM
+  workflow_dispatch:
+
+jobs:
+  upload-resume:
+    runs-on: naukri-ec2
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Upload resume to Naukri for Riyaz
+        uses: Prateek-Wayne/naukri-resume-action@v1.2.0
+        with:
+          username: ${{ secrets.RIYAZ_NAUKRI_EMAIL }}
+          password: ${{ secrets.RIYAZ_NAUKRI_PASSWORD }}
+          profile_id: ${{ secrets.RIYAZ_PROFILE_ID }}
+          resume_path: ./resumes/Riyaz_Sayyad_Backend_Engineer_Resume.pdf
